@@ -2,25 +2,31 @@ import { fetchBlogPosts } from "@/lib/api";
 import HeroFeaturedPost from "@/components/HeroFeaturedPost";
 import FeaturedPostsSidebar from "@/components/FeaturedPostsSidebar";
 import RecentPostsGrid from "@/components/RecentPostsGrid";
-import * as motion from "motion/react-client";
+import EditorialQuote from "@/components/EditorialQuote";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Home | Beyond UI",
+  description: "Discover the latest insights on design, technology, and the future of digital interfaces.",
+};
 
 export default async function Home() {
   const posts = await fetchBlogPosts();
   
   const heroPost = posts[0];
-  const sidebarPosts = posts.slice(1, 6);
-  const recentPosts = posts.slice(6);
+  const sidebarPosts = posts.slice(1, 5);
+  const recentPosts = posts.slice(5);
 
   return (
-    <div className="space-y-24 pb-24">
+    <div className="space-y-32 pb-32">
       {/* Hero Section */}
-      <section className="pt-12">
-        <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      <section className="pt-16">
+        <div className="editorial-container">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
             <div className="lg:col-span-8">
               {heroPost && <HeroFeaturedPost post={heroPost} />}
             </div>
-            <div className="lg:col-span-4 sticky top-28">
+            <div className="lg:col-span-4 sticky top-32">
               <FeaturedPostsSidebar posts={sidebarPosts} />
             </div>
           </div>
@@ -29,25 +35,26 @@ export default async function Home() {
 
       {/* Recent Posts Section */}
       <section>
-        <div className="max-w-7xl mx-auto px-6 md:px-12">
+        <div className="editorial-container">
+          <div className="flex items-center justify-between mb-16 border-b border-border-base pb-6">
+            <div className="space-y-2">
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tighter">Latest Stories</h2>
+              <p className="text-text-secondary font-medium">Fresh perspectives from our global contributors.</p>
+            </div>
+            <div className="hidden md:flex items-center space-x-4">
+              <span className="text-[11px] font-bold uppercase tracking-widest text-text-muted">Sort by:</span>
+              <select className="bg-transparent text-[11px] font-bold uppercase tracking-widest text-text-primary border-none focus:ring-0 cursor-pointer">
+                <option>Newest First</option>
+                <option>Most Popular</option>
+              </select>
+            </div>
+          </div>
           <RecentPostsGrid posts={recentPosts} />
         </div>
       </section>
 
       {/* Editorial Quote / Break */}
-      <motion.section 
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        className="py-24 border-y border-border-base text-center bg-gray-50/50"
-      >
-        <div className="max-w-3xl mx-auto space-y-8 px-6">
-          <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-text-muted">The Beyond UI Philosophy</span>
-          <h2 className="text-3xl md:text-5xl font-serif italic text-text-primary leading-tight">
-            "Design is not just what it looks like and feels like. Design is how it works and how it makes us feel."
-          </h2>
-          <p className="text-[13px] font-bold uppercase tracking-widest text-text-secondary">Editorial Team</p>
-        </div>
-      </motion.section>
+      <EditorialQuote />
     </div>
   );
 }
