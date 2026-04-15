@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { BlogPost } from "../types";
 import PostCard from "./PostCard";
 
@@ -6,30 +7,43 @@ interface RecentPostsGridProps {
   title?: string;
 }
 
-export default function RecentPostsGrid({ posts, title = "Recent Stories" }: RecentPostsGridProps) {
+export default function RecentPostsGrid({
+  posts,
+  title = "Recent Stories",
+}: RecentPostsGridProps) {
   return (
-    <section className="space-y-4">
-      <div className="rail-header text-[11px] font-bold uppercase text-text-muted tracking-wider mb-2">
-        Recently Published
+    <section className="space-y-5">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <p className="section-kicker">Editorial feed</p>
+          <h2 className="mt-2 text-2xl font-black tracking-tight text-text-primary md:text-3xl">
+            {title}
+          </h2>
+        </div>
+
+        {posts.length > 0 && (
+          <p className="text-sm text-text-secondary">{posts.length} stories</p>
+        )}
       </div>
-      
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {posts.map((post) => (
-          <div key={post.id}>
-            <PostCard post={post} />
-          </div>
-        ))}
-      </div>
-      
-      {posts.length === 0 && (
-        <div className="py-20 text-center space-y-4">
-          <p className="text-text-secondary text-lg">No stories found matching your criteria.</p>
-          <button 
-            onClick={() => window.location.reload()}
-            className="pill-button bg-text-primary text-white"
-          >
-            Refresh Feed
-          </button>
+
+      {posts.length > 0 ? (
+        <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+          {posts.map((post) => (
+            <PostCard key={post.id} post={post} />
+          ))}
+        </div>
+      ) : (
+        <div className="premium-card flex flex-col items-center justify-center px-6 py-16 text-center">
+          <p className="text-lg font-semibold text-text-primary">
+            No stories found matching your criteria.
+          </p>
+          <p className="mt-2 max-w-xl text-sm leading-6 text-text-secondary">
+            Try a different search or return to the main archive to browse all
+            available stories.
+          </p>
+          <Link to="/blog" className="pill-button btn-dark mt-6">
+            Browse Archive
+          </Link>
         </div>
       )}
     </section>
