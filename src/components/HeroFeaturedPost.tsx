@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { BlogPost } from "../types";
-import { motion } from "motion/react";
+import { getReadingTime } from "../lib/utils";
 
 interface HeroFeaturedPostProps {
   post: BlogPost;
@@ -8,51 +8,57 @@ interface HeroFeaturedPostProps {
 
 export default function HeroFeaturedPost({ post }: HeroFeaturedPostProps) {
   return (
-    <motion.div 
-      initial={{ opacity: 0, scale: 0.98 }}
-      animate={{ opacity: 1, scale: 1 }}
-      className="relative h-full min-h-[400px] rounded-premium overflow-hidden group border border-border-base"
+    <Link
+      to={`/post/${post.id}`}
+      aria-label={`Read ${post.blog_heading}`}
+      className="group block h-full"
     >
-      <img 
-        src={post.blog_image} 
-        alt={post.blog_heading}
-        referrerPolicy="no-referrer"
-        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-      
-      <div className="absolute bottom-0 left-0 w-full p-8 space-y-3">
-        <motion.div 
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="inline-block px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[10px] font-bold uppercase tracking-widest text-white"
-        >
-          {post.topic}
-        </motion.div>
-        
-        <motion.h2 
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="text-[28px] font-bold text-white leading-[1.2] max-w-[90%] tracking-tight"
-        >
-          {post.blog_heading}
-        </motion.h2>
-        
-        <motion.div 
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="flex items-center space-x-4 text-white/80 text-[12px]"
-        >
-          <span>By {post.name}</span>
-          <span>•</span>
-          <span>12 min read</span>
-          <span>•</span>
-          <span>{post.month}</span>
-        </motion.div>
-      </div>
-    </motion.div>
+      <article className="premium-card relative isolate min-h-[540px] overflow-hidden lg:min-h-[680px]">
+        <img
+          src={post.blog_image}
+          alt={post.blog_heading}
+          fetchPriority="high"
+          loading="eager"
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/28 to-transparent" />
+
+        <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8 lg:p-10">
+          <div className="mb-5 flex flex-wrap items-center gap-3 text-white/80">
+            <span className="rounded-full bg-white/15 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.24em] text-white backdrop-blur">
+              {post.topic}
+            </span>
+            <span className="text-[12px]">{post.month}</span>
+            <span className="text-[12px]">•</span>
+            <span className="text-[12px]">{post.job_roles}</span>
+            <span className="text-[12px]">•</span>
+            <span className="text-[12px]">{getReadingTime(post.blogtext)}</span>
+          </div>
+
+          <h2 className="max-w-3xl text-4xl font-black leading-[1.05] tracking-tight text-white sm:text-5xl xl:text-6xl">
+            {post.blog_heading}
+          </h2>
+
+          <p className="mt-4 max-w-2xl text-sm leading-7 text-white/80 sm:text-base">
+            {post.blog_description}
+          </p>
+
+          <div className="mt-6 flex items-center gap-3 text-white/75">
+            <div className="h-10 w-10 overflow-hidden rounded-full border border-white/25">
+              <img
+                src={post.avatar}
+                alt={post.name}
+                loading="lazy"
+                className="h-full w-full object-cover"
+              />
+            </div>
+            <div className="text-left">
+              <p className="text-sm font-semibold text-white">{post.name}</p>
+              <p className="text-[12px]">{post.job_roles}</p>
+            </div>
+          </div>
+        </div>
+      </article>
+    </Link>
   );
 }
