@@ -113,24 +113,33 @@ const MOCK_POSTS: BlogPost[] = [
 
 export async function fetchBlogPosts(): Promise<BlogPost[]> {
   try {
-    const response = await fetch(`${API_BASE_URL}/blogs`);
-    if (!response.ok) throw new Error("Failed to fetch blog posts");
+    const response = await fetch(`${API_BASE_URL}/blogs`, {
+      headers: { 'Accept': 'application/json' }
+    });
+    if (!response.ok) {
+      console.warn(`API responded with ${response.status}. Falling back to mock data.`);
+      return MOCK_POSTS;
+    }
     const data = await response.json();
-    return data.length > 0 ? data : MOCK_POSTS;
+    return Array.isArray(data) && data.length > 0 ? data : MOCK_POSTS;
   } catch (error) {
-    console.error("Error fetching blog posts:", error);
-    return MOCK_POSTS; // Return mock data as fallback
+    console.error("Network error fetching blog posts:", error);
+    return MOCK_POSTS;
   }
 }
 
 export async function fetchBlogPostById(id: string): Promise<BlogPost | null> {
   try {
-    const response = await fetch(`${API_BASE_URL}/blogs/${id}`);
-    if (!response.ok) throw new Error("Post not found");
+    const response = await fetch(`${API_BASE_URL}/blogs/${id}`, {
+      headers: { 'Accept': 'application/json' }
+    });
+    if (!response.ok) {
+      console.warn(`API responded with ${response.status} for post ${id}. Checking mock data.`);
+      return MOCK_POSTS.find(p => p.id === id) || null;
+    }
     return await response.json();
   } catch (error) {
-    console.error(`Error fetching blog post ${id}:`, error);
-    // Try to find in mock data
+    console.error(`Network error fetching blog post ${id}:`, error);
     return MOCK_POSTS.find(p => p.id === id) || null;
   }
 }

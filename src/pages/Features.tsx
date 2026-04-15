@@ -36,12 +36,12 @@ const FEATURES = [
 
 export default function Features() {
   return (
-    <div className="space-y-24 pb-20">
-      <div className="max-w-3xl">
-        <h1 className="text-5xl md:text-7xl font-black tracking-tighter mb-6">
-          Built for the Future.
+    <div className="space-y-24 pb-24 px-6 md:px-12 pt-16">
+      <div className="max-w-4xl space-y-6">
+        <h1 className="text-5xl md:text-8xl font-bold tracking-tighter leading-[0.95]">
+          Built for the <br /> Future.
         </h1>
-        <p className="text-xl text-text-secondary leading-relaxed">
+        <p className="text-xl md:text-2xl text-text-secondary leading-relaxed max-w-2xl font-medium">
           Beyond UI is more than just a blog. It's a carefully engineered platform designed to elevate your content and provide a premium experience for your readers.
         </p>
       </div>
@@ -54,13 +54,13 @@ export default function Features() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
             viewport={{ once: true }}
-            className="p-10 rounded-[40px] border border-border-light bg-white hover:shadow-xl transition-all group"
+            className="p-10 rounded-premium border border-border-base bg-white hover:shadow-lg transition-all group"
           >
-            <div className="w-16 h-16 rounded-2xl bg-bg-outer flex items-center justify-center text-text-primary mb-8 group-hover:bg-text-primary group-hover:text-white transition-colors">
+            <div className="w-14 h-14 rounded-2xl bg-gray-50 border border-border-base flex items-center justify-center text-accent-base mb-8 group-hover:bg-accent-base group-hover:text-white transition-colors">
               {feature.icon}
             </div>
             <h3 className="text-xl font-bold mb-4">{feature.title}</h3>
-            <p className="text-text-secondary leading-relaxed">
+            <p className="text-[15px] text-text-secondary leading-relaxed">
               {feature.description}
             </p>
           </motion.div>
@@ -68,18 +68,18 @@ export default function Features() {
       </div>
 
       {/* CTA Section */}
-      <section className="bg-bg-outer rounded-[48px] p-12 md:p-20 text-center space-y-8">
-        <h2 className="text-3xl md:text-5xl font-black tracking-tight max-w-2xl mx-auto">
+      <section className="bg-gray-50 border border-border-base rounded-[40px] p-12 md:p-24 text-center space-y-10">
+        <h2 className="text-3xl md:text-6xl font-bold tracking-tighter max-w-3xl mx-auto leading-[1.1]">
           Ready to elevate your digital presence?
         </h2>
-        <p className="text-lg text-text-secondary max-w-xl mx-auto">
+        <p className="text-lg md:text-xl text-text-secondary max-w-xl mx-auto font-medium">
           Join the ranks of premium publishers who choose Beyond UI for their editorial needs.
         </p>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <button className="pill-button bg-text-primary text-white px-10 py-4">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+          <button className="pill-button btn-dark px-12 py-4">
             Get Started Now
           </button>
-          <button className="pill-button bg-white text-text-primary border border-border-light px-10 py-4">
+          <button className="pill-button bg-white text-text-primary px-12 py-4 hover:bg-gray-100">
             View Documentation
           </button>
         </div>

@@ -19,7 +19,7 @@
 
 @layer base {
   body {
-    @apply bg-outer-bg text-text-primary font-sans antialiased;
+    @apply bg-white text-text-primary font-sans antialiased;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -29,7 +29,7 @@
 
 @layer components {
   .content-shell {
-    @apply max-w-[976px] mx-auto bg-inner-bg min-h-screen shadow-premium border border-white/80;
+    @apply w-full mx-auto bg-white min-h-screen;
   }
 
   .premium-card {
@@ -37,10 +37,14 @@
   }
 
   .pill-button {
-    @apply px-4 py-2 rounded-full font-semibold text-[13px] transition-all duration-200 active:scale-95 border border-border-base;
+    @apply px-6 py-2.5 rounded-full font-semibold text-[14px] transition-all duration-200 active:scale-95 border border-border-base;
   }
 
   .btn-dark {
-    @apply bg-accent-base text-white border-none;
+    @apply bg-accent-base text-white border-none hover:bg-black;
+  }
+
+  .btn-ghost {
+    @apply border-none hover:bg-gray-100;
   }
 }

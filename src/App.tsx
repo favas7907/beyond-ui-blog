@@ -21,10 +21,9 @@ export default function App() {
   return (
     <Router>
       <ScrollToTop />
-      <div className="min-h-screen bg-outer-bg py-6 px-4">
-        <div className="content-shell flex flex-col">
-          <Navbar />
-          <main className="flex-grow p-5 md:p-8">
+      <div className="content-shell flex flex-col min-h-screen">
+        <Navbar />
+        <main className="flex-grow">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/blog" element={<Blog />} />
@@ -43,7 +42,6 @@ export default function App() {
           </main>
           <Footer />
         </div>
-      </div>
     </Router>
   );
 }

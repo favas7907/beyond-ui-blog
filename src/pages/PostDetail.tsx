@@ -42,83 +42,84 @@ export default function PostDetail() {
   }
 
   return (
-    <article className="pb-20">
-      {/* Back Button */}
-      <Link 
-        to="/blog" 
-        className="inline-flex items-center space-x-2 text-sm font-bold text-text-secondary hover:text-text-primary transition-colors mb-8"
-      >
-        <ArrowLeft size={16} />
-        <span>Back to Archive</span>
-      </Link>
-
+    <article className="pb-24">
       {/* Hero Header */}
-      <div className="space-y-8 mb-12">
-        <div className="space-y-4">
-          <span className="inline-block px-3 py-1 rounded-full bg-bg-outer text-[10px] font-black uppercase tracking-widest text-text-secondary">
-            {post.topic}
-          </span>
-          <h1 className="text-4xl md:text-6xl font-black tracking-tighter leading-[1.1]">
-            {post.blog_heading}
-          </h1>
-          <p className="text-xl text-text-secondary leading-relaxed max-w-3xl">
-            {post.blog_description}
-          </p>
-        </div>
+      <header className="pt-16 pb-12 space-y-10">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <div className="space-y-6 max-w-4xl">
+            <Link 
+              to="/blog" 
+              className="inline-flex items-center space-x-2 text-[12px] font-bold uppercase tracking-widest text-text-muted hover:text-text-primary transition-colors"
+            >
+              <ArrowLeft size={14} />
+              <span>Back to Archive</span>
+            </Link>
+            
+            <h1 className="text-4xl md:text-7xl font-bold tracking-tighter leading-[1.05]">
+              {post.blog_heading}
+            </h1>
+            
+            <p className="text-xl md:text-2xl text-text-secondary leading-relaxed font-medium">
+              {post.blog_description}
+            </p>
+          </div>
 
-        <div className="flex items-center justify-between py-6 border-y border-border-light">
-          <div className="flex items-center space-x-4">
-            <img 
-              src={post.avatar} 
-              alt={post.name} 
-              referrerPolicy="no-referrer"
-              className="w-12 h-12 rounded-full object-cover grayscale"
-            />
-            <div>
-              <p className="font-bold text-text-primary">{post.name}</p>
-              <p className="text-xs text-text-secondary">{post.job_roles} • {post.month}</p>
+          <div className="flex items-center justify-between py-8 border-y border-border-base mt-10">
+            <div className="flex items-center space-x-5">
+              <img 
+                src={post.avatar} 
+                alt={post.name} 
+                referrerPolicy="no-referrer"
+                className="w-14 h-14 rounded-full object-cover grayscale border border-border-base"
+              />
+              <div>
+                <p className="font-bold text-[16px] text-text-primary">{post.name}</p>
+                <p className="text-[13px] text-text-secondary font-medium">{post.job_roles} • {post.month}</p>
+              </div>
+            </div>
+            <div className="flex items-center space-x-3">
+              <button className="p-3 rounded-full hover:bg-gray-50 border border-border-base transition-colors text-text-secondary"><Share2 size={18} /></button>
+              <button className="p-3 rounded-full hover:bg-gray-50 border border-border-base transition-colors text-text-secondary"><Bookmark size={18} /></button>
             </div>
           </div>
-          <div className="flex items-center space-x-2">
-            <button className="p-2 rounded-full hover:bg-bg-outer transition-colors text-text-secondary"><Share2 size={20} /></button>
-            <button className="p-2 rounded-full hover:bg-bg-outer transition-colors text-text-secondary"><Bookmark size={20} /></button>
-          </div>
         </div>
-      </div>
+      </header>
 
       {/* Main Image */}
-      <div className="aspect-[21/9] rounded-[32px] overflow-hidden mb-16 border border-border-light">
-        <img 
-          src={post.blog_image} 
-          alt={post.blog_heading} 
-          referrerPolicy="no-referrer"
-          className="w-full h-full object-cover"
-        />
+      <div className="mb-20">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <div className="aspect-[21/9] rounded-premium overflow-hidden border border-border-base shadow-lg">
+            <img 
+              src={post.blog_image} 
+              alt={post.blog_heading} 
+              referrerPolicy="no-referrer"
+              className="w-full h-full object-cover"
+            />
+          </div>
+        </div>
       </div>
 
       {/* Content */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-        <div className="lg:col-span-8 lg:col-start-3 space-y-8">
-          <div className="prose prose-lg max-w-none text-text-primary leading-relaxed space-y-6">
-            <p className="text-xl font-medium leading-relaxed italic text-text-secondary border-l-4 border-text-primary pl-6 py-2">
-              {post.quotes}
-            </p>
-            <div className="text-lg space-y-6 whitespace-pre-wrap">
-              {post.blogtext}
-            </div>
-            <div className="text-lg space-y-6">
-              {post.para}
-            </div>
+      <div className="max-w-3xl mx-auto px-6 space-y-12">
+        <div className="prose prose-xl max-w-none text-text-primary leading-[1.8] space-y-8 font-sans">
+          <p className="text-2xl md:text-3xl font-serif italic text-text-secondary border-l-4 border-accent-base pl-8 py-2 my-12">
+            {post.quotes}
+          </p>
+          <div className="text-[18px] md:text-[20px] space-y-8 whitespace-pre-wrap text-text-secondary">
+            {post.blogtext}
           </div>
+          <div className="text-[18px] md:text-[20px] space-y-8 text-text-secondary">
+            {post.para}
+          </div>
+        </div>
 
-          {/* Tags / Footer */}
-          <div className="pt-12 border-t border-border-light flex flex-wrap gap-2">
-            {["Design", "Technology", "Future", "UI/UX", post.topic].map(tag => (
-              <span key={tag} className="px-4 py-1.5 rounded-full bg-bg-outer text-xs font-bold text-text-secondary">
-                #{tag}
-              </span>
-            ))}
-          </div>
+        {/* Tags / Footer */}
+        <div className="pt-16 border-t border-border-base flex flex-wrap gap-3">
+          {["Design", "Technology", "Future", "UI/UX", post.topic].map(tag => (
+            <span key={tag} className="px-5 py-2 rounded-full bg-gray-50 border border-border-base text-[12px] font-bold text-text-secondary hover:bg-gray-100 transition-colors cursor-pointer">
+              #{tag}
+            </span>
+          ))}
         </div>
       </div>
     </article>

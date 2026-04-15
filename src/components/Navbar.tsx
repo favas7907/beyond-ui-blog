@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { cn } from "../lib/utils";
 import { Menu, X, Search } from "lucide-react";
 import { useState } from "react";
+import { motion } from "motion/react";
 
 const NAV_LINKS = [
   { name: "Home", href: "/" },
@@ -16,70 +17,82 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className="sticky top-0 z-50 bg-white border-b border-border-base px-8 py-4">
-      <div className="flex items-center justify-between h-12">
-        {/* Logo */}
-        <Link to="/" className="text-[18px] font-extrabold tracking-tighter text-text-primary">
-          BEYOND UI
-        </Link>
+    <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-border-base py-4">
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
+        <div className="flex items-center justify-between h-14">
+          {/* Logo */}
+          <Link to="/" className="text-[22px] font-bold tracking-tighter text-text-primary flex items-center space-x-2">
+            <div className="w-8 h-8 bg-accent-base rounded-lg flex items-center justify-center text-white text-[14px]">B</div>
+            <span>Beyond UI.</span>
+          </Link>
 
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center space-x-6">
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.name}
-              to={link.href}
-              className={cn(
-                "text-[13px] font-medium transition-colors hover:text-text-primary",
-                location.pathname === link.href ? "text-text-primary" : "text-text-secondary"
-              )}
-            >
-              {link.name}
-            </Link>
-          ))}
-        </div>
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-10">
+            {NAV_LINKS.map((link) => (
+              <Link
+                key={link.name}
+                to={link.href}
+                className={cn(
+                  "text-[13px] font-bold uppercase tracking-widest transition-colors hover:text-text-primary",
+                  location.pathname === link.href ? "text-text-primary" : "text-text-muted"
+                )}
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
 
-        {/* Desktop Actions */}
-        <div className="hidden md:flex items-center space-x-3">
-          <button className="pill-button text-text-primary">
-            Sign In
+          {/* Desktop Actions */}
+          <div className="hidden md:flex items-center space-x-4">
+            <button className="text-[13px] font-bold uppercase tracking-widest text-text-muted hover:text-text-primary transition-colors px-4">
+              Log In
+            </button>
+            <button className="pill-button btn-dark px-8">
+              Get Started
+            </button>
+          </div>
+
+          {/* Mobile Menu Toggle */}
+          <button 
+            className="md:hidden p-2 text-text-primary"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
-          <button className="pill-button btn-dark">
-            Subscribe
-          </button>
         </div>
-
-        {/* Mobile Menu Toggle */}
-        <button 
-          className="md:hidden p-2 text-text-primary"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-        >
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
       </div>
 
       {/* Mobile Navigation */}
       {isMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full bg-white border-t border-border-light p-6 space-y-4 shadow-xl">
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.name}
-              to={link.href}
-              onClick={() => setIsMenuOpen(false)}
-              className={cn(
-                "block text-lg font-medium",
-                location.pathname === link.href ? "text-text-primary" : "text-text-secondary"
-              )}
-            >
-              {link.name}
-            </Link>
-          ))}
-          <div className="pt-4 border-t border-border-light">
-            <button className="w-full pill-button bg-text-primary text-white">
+        <motion.div 
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="md:hidden absolute top-full left-0 w-full bg-white border-t border-border-base p-8 space-y-6 shadow-2xl"
+        >
+          <div className="space-y-4">
+            {NAV_LINKS.map((link) => (
+              <Link
+                key={link.name}
+                to={link.href}
+                onClick={() => setIsMenuOpen(false)}
+                className={cn(
+                  "block text-2xl font-bold tracking-tighter",
+                  location.pathname === link.href ? "text-text-primary" : "text-text-secondary"
+                )}
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
+          <div className="pt-6 border-t border-border-base space-y-4">
+            <button className="w-full pill-button btn-dark py-4">
               Get Started
             </button>
+            <button className="w-full text-[13px] font-bold uppercase tracking-widest text-text-muted py-2">
+              Log In
+            </button>
           </div>
-        </div>
+        </motion.div>
       )}
     </nav>
   );
