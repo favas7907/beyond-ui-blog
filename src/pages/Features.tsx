@@ -1,87 +1,92 @@
-import { Layout, Zap, Shield, Globe, Cpu, Palette } from "lucide-react";
-import { motion } from "motion/react";
+import { Cpu, Globe, Layout, Palette, Shield, Zap } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const FEATURES = [
   {
-    icon: <Layout className="w-8 h-8" />,
+    icon: Layout,
     title: "Editorial Layouts",
-    description: "Handcrafted layouts designed for maximum readability and visual impact on any device."
+    description:
+      "Structured cards, a strong hero rail, and a clean archive flow that keeps the reading experience calm.",
   },
   {
-    icon: <Zap className="w-8 h-8" />,
-    title: "Blazing Performance",
-    description: "Optimized for speed with SSR and intelligent asset loading, ensuring a seamless experience."
+    icon: Zap,
+    title: "Fast Story Search",
+    description:
+      "URL-driven search keeps filtering shareable, reload-safe, and easy to return to on any device.",
   },
   {
-    icon: <Shield className="w-8 h-8" />,
-    title: "Privacy First",
-    description: "No invasive tracking or bloated scripts. We respect your data and your digital space."
+    icon: Shield,
+    title: "Defensive Data Layer",
+    description:
+      "MockAPI fallback handling keeps the app functional even when the remote endpoint is unavailable.",
   },
   {
-    icon: <Globe className="w-8 h-8" />,
-    title: "Global Reach",
-    description: "A platform built for a global audience, with support for diverse perspectives and voices."
+    icon: Globe,
+    title: "Responsive by Default",
+    description:
+      "The layout scales from desktop to mobile without breaking the editorial hierarchy or content rhythm.",
   },
   {
-    icon: <Cpu className="w-8 h-8" />,
-    title: "Modern Tech Stack",
-    description: "Built with the latest technologies including React, Vite, and Express for a robust foundation."
+    icon: Cpu,
+    title: "Clean Routing",
+    description:
+      "React Router keeps the experience smooth across pages and supports direct navigation on Vercel.",
   },
   {
-    icon: <Palette className="w-8 h-8" />,
-    title: "Premium Design",
-    description: "A distinctive visual language that sets your content apart from the generic web."
-  }
+    icon: Palette,
+    title: "Premium Typography",
+    description:
+      "Bold headings, muted body text, and a restrained visual system that feels handcrafted.",
+  },
 ];
 
 export default function Features() {
   return (
-    <div className="space-y-24 pb-20">
-      <div className="max-w-3xl">
-        <h1 className="text-5xl md:text-7xl font-black tracking-tighter mb-6">
-          Built for the Future.
-        </h1>
-        <p className="text-xl text-text-secondary leading-relaxed">
-          Beyond UI is more than just a blog. It's a carefully engineered platform designed to elevate your content and provide a premium experience for your readers.
+    <div className="space-y-14 pb-20">
+      <section className="max-w-3xl space-y-4">
+        <p className="section-kicker">Features</p>
+        <h1 className="section-title">Built to feel premium and editorial.</h1>
+        <p className="section-body">
+          Beyond UI combines a refined visual language with stable routing, responsive
+          structure, and a clean content delivery flow.
         </p>
-      </div>
+      </section>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {FEATURES.map((feature, index) => (
-          <motion.div 
-            key={feature.title}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1 }}
-            viewport={{ once: true }}
-            className="p-10 rounded-[40px] border border-border-light bg-white hover:shadow-xl transition-all group"
-          >
-            <div className="w-16 h-16 rounded-2xl bg-bg-outer flex items-center justify-center text-text-primary mb-8 group-hover:bg-text-primary group-hover:text-white transition-colors">
-              {feature.icon}
-            </div>
-            <h3 className="text-xl font-bold mb-4">{feature.title}</h3>
-            <p className="text-text-secondary leading-relaxed">
-              {feature.description}
-            </p>
-          </motion.div>
-        ))}
-      </div>
+      <section className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+        {FEATURES.map((feature) => {
+          const Icon = feature.icon;
 
-      {/* CTA Section */}
-      <section className="bg-bg-outer rounded-[48px] p-12 md:p-20 text-center space-y-8">
-        <h2 className="text-3xl md:text-5xl font-black tracking-tight max-w-2xl mx-auto">
-          Ready to elevate your digital presence?
+          return (
+            <article key={feature.title} className="premium-card p-8 transition-transform duration-300 hover:-translate-y-1">
+              <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-outer-bg text-text-primary">
+                <Icon size={28} />
+              </div>
+              <h2 className="text-xl font-bold">{feature.title}</h2>
+              <p className="mt-3 text-sm leading-7 text-text-secondary">
+                {feature.description}
+              </p>
+            </article>
+          );
+        })}
+      </section>
+
+      <section className="premium-card bg-outer-bg p-8 text-center md:p-12">
+        <p className="section-kicker">Next step</p>
+        <h2 className="mt-3 text-3xl font-black tracking-tight md:text-5xl">
+          Ready to explore the archive?
         </h2>
-        <p className="text-lg text-text-secondary max-w-xl mx-auto">
-          Join the ranks of premium publishers who choose Beyond UI for their editorial needs.
+        <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-text-secondary">
+          Browse the latest stories, contact the editorial team, or review the design
+          system that powers the whole experience.
         </p>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <button className="pill-button bg-text-primary text-white px-10 py-4">
-            Get Started Now
-          </button>
-          <button className="pill-button bg-white text-text-primary border border-border-light px-10 py-4">
-            View Documentation
-          </button>
+
+        <div className="mt-8 flex flex-wrap justify-center gap-3">
+          <Link to="/blog" className="pill-button btn-dark">
+            Browse Stories
+          </Link>
+          <Link to="/contact" className="pill-button">
+            Contact Us
+          </Link>
         </div>
       </section>
     </div>
