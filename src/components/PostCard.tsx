@@ -22,6 +22,7 @@ export default function PostCard({ post }: PostCardProps) {
             src={post.blog_image} 
             alt={post.blog_heading}
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             referrerPolicy="no-referrer"
             className="object-cover transition-transform duration-700 group-hover:scale-105"
           />
@@ -44,6 +45,7 @@ export default function PostCard({ post }: PostCardProps) {
                 src={post.avatar} 
                 alt={post.name} 
                 fill
+                sizes="24px"
                 referrerPolicy="no-referrer"
                 className="object-cover"
               />

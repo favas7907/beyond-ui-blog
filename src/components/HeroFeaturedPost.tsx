@@ -19,6 +19,7 @@ export default function HeroFeaturedPost({ post }: HeroFeaturedPostProps) {
         alt={post.blog_heading}
         fill
         priority
+        sizes="100vw"
         referrerPolicy="no-referrer"
         className="object-cover transition-transform duration-1000 group-hover:scale-105"
       />
@@ -55,6 +56,7 @@ export default function HeroFeaturedPost({ post }: HeroFeaturedPostProps) {
                 src={post.avatar} 
                 alt={post.name} 
                 fill
+                sizes="32px"
                 referrerPolicy="no-referrer" 
                 className="object-cover"
               />

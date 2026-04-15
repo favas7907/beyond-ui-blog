@@ -42,6 +42,7 @@ export default async function PostDetail({ params }: { params: Promise<{ id: str
                   src={post.avatar} 
                   alt={post.name} 
                   fill
+                  sizes="56px"
                   referrerPolicy="no-referrer"
                   className="object-cover"
                 />
@@ -68,6 +69,7 @@ export default async function PostDetail({ params }: { params: Promise<{ id: str
               alt={post.blog_heading} 
               fill
               priority
+              sizes="100vw"
               referrerPolicy="no-referrer"
               className="object-cover"
             />

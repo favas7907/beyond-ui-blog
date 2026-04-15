@@ -44,6 +44,7 @@ export default function About() {
             alt="Office space" 
             fill
             priority
+            sizes="100vw"
             referrerPolicy="no-referrer"
             className="object-cover"
           />

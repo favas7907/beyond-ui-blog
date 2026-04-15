@@ -30,6 +30,7 @@ export default function FeaturedPostsSidebar({ posts }: FeaturedPostsSidebarProp
                 src={post.blog_image} 
                 alt={post.blog_heading}
                 fill
+                sizes="80px"
                 referrerPolicy="no-referrer"
                 className="object-cover transition-transform duration-500 group-hover:scale-110"
               />
