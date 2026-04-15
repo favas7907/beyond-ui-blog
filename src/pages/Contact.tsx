@@ -1,104 +1,174 @@
 import { Mail, MapPin, Phone, Send } from "lucide-react";
-import { motion } from "motion/react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { ContactForm } from "../types";
+
+const INITIAL_FORM: ContactForm = {
+  name: "",
+  email: "",
+  message: "",
+};
 
 export default function Contact() {
-  return (
-    <div className="space-y-20 pb-20">
-      <div className="max-w-3xl">
-        <h1 className="text-5xl md:text-7xl font-black tracking-tighter mb-6">
-          Get in Touch.
-        </h1>
-        <p className="text-xl text-text-secondary leading-relaxed">
-          Have a story to share, a question to ask, or just want to say hello? We'd love to hear from you.
-        </p>
-      </div>
+  const [form, setForm] = useState<ContactForm>(INITIAL_FORM);
+  const [submitted, setSubmitted] = useState(false);
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-        {/* Contact Info */}
-        <div className="space-y-12">
-          <div className="space-y-8">
-            <div className="flex items-start space-x-6">
-              <div className="w-12 h-12 rounded-2xl bg-bg-outer flex items-center justify-center text-text-primary">
-                <Mail size={24} />
+  const updateField =
+    (field: keyof ContactForm) => (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      setSubmitted(false);
+      setForm((current) => ({
+        ...current,
+        [field]: event.target.value,
+      }));
+    };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
+      setSubmitted(false);
+      return;
+    }
+
+    setSubmitted(true);
+    setForm(INITIAL_FORM);
+  };
+
+  return (
+    <div className="space-y-14 pb-20">
+      <section className="max-w-3xl space-y-4">
+        <p className="section-kicker">Contact</p>
+        <h1 className="section-title">Get in touch.</h1>
+        <p className="section-body">
+          Have a story idea, a collaboration request, or a question about the project?
+          Send a message and we will get back to you.
+        </p>
+      </section>
+
+      <div className="grid gap-10 lg:grid-cols-2">
+        <div className="space-y-8">
+          <div className="space-y-6">
+            <div className="flex items-start gap-4">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-outer-bg text-text-primary">
+                <Mail size={20} />
               </div>
               <div>
-                <h3 className="font-bold text-lg">Email Us</h3>
-                <p className="text-text-secondary">editorial@beyondui.com</p>
+                <h3 className="text-lg font-bold">Email</h3>
+                <a
+                  href="mailto:editorial@beyondui.com"
+                  className="text-text-secondary hover:text-text-primary"
+                >
+                  editorial@beyondui.com
+                </a>
                 <p className="text-text-secondary">support@beyondui.com</p>
               </div>
             </div>
 
-            <div className="flex items-start space-x-6">
-              <div className="w-12 h-12 rounded-2xl bg-bg-outer flex items-center justify-center text-text-primary">
-                <MapPin size={24} />
+            <div className="flex items-start gap-4">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-outer-bg text-text-primary">
+                <MapPin size={20} />
               </div>
               <div>
-                <h3 className="font-bold text-lg">Visit Us</h3>
+                <h3 className="text-lg font-bold">Visit</h3>
                 <p className="text-text-secondary">123 Design District</p>
                 <p className="text-text-secondary">San Francisco, CA 94103</p>
               </div>
             </div>
 
-            <div className="flex items-start space-x-6">
-              <div className="w-12 h-12 rounded-2xl bg-bg-outer flex items-center justify-center text-text-primary">
-                <Phone size={24} />
+            <div className="flex items-start gap-4">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-outer-bg text-text-primary">
+                <Phone size={20} />
               </div>
               <div>
-                <h3 className="font-bold text-lg">Call Us</h3>
-                <p className="text-text-secondary">+1 (555) 123-4567</p>
-                <p className="text-text-secondary">Mon-Fri, 9am-6pm PST</p>
+                <h3 className="text-lg font-bold">Call</h3>
+                <a href="tel:+15551234567" className="text-text-secondary hover:text-text-primary">
+                  +1 (555) 123-4567
+                </a>
+                <p className="text-text-secondary">Mon–Fri, 9am–6pm PST</p>
               </div>
             </div>
           </div>
 
-          <div className="p-8 rounded-[32px] bg-text-primary text-white space-y-4">
-            <h4 className="font-bold text-xl">Join the Community</h4>
-            <p className="opacity-70 text-sm leading-relaxed">
-              Sign up for our weekly editorial digest and get the latest stories delivered straight to your inbox.
+          <div className="premium-card bg-accent-base p-8 text-white">
+            <h3 className="text-2xl font-black tracking-tight text-white">Join the community</h3>
+            <p className="mt-3 max-w-xl text-sm leading-7 text-white/75">
+              Follow the project for new stories, editorial experiments, and updates.
             </p>
-            <button className="pill-button bg-white text-text-primary w-full mt-4">
-              Join Now
-            </button>
+            <Link to="/blog" className="pill-button mt-6 bg-white text-text-primary hover:bg-white/90">
+              Read the latest stories
+            </Link>
           </div>
         </div>
 
-        {/* Contact Form */}
-        <motion.div 
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          className="bg-white p-8 md:p-12 rounded-[40px] border border-border-light shadow-xl space-y-8"
+        <form
+          onSubmit={handleSubmit}
+          className="premium-card space-y-6 p-8 md:p-10"
         >
-          <div className="space-y-6">
-            <div className="space-y-2">
-              <label className="text-xs font-black uppercase tracking-widest text-text-secondary">Full Name</label>
-              <input 
-                type="text" 
-                placeholder="John Doe"
-                className="w-full px-6 py-4 rounded-2xl bg-bg-outer/50 border border-transparent focus:border-text-primary/20 focus:bg-white focus:outline-none transition-all"
-              />
-            </div>
-            <div className="space-y-2">
-              <label className="text-xs font-black uppercase tracking-widest text-text-secondary">Email Address</label>
-              <input 
-                type="email" 
-                placeholder="john@example.com"
-                className="w-full px-6 py-4 rounded-2xl bg-bg-outer/50 border border-transparent focus:border-text-primary/20 focus:bg-white focus:outline-none transition-all"
-              />
-            </div>
-            <div className="space-y-2">
-              <label className="text-xs font-black uppercase tracking-widest text-text-secondary">Message</label>
-              <textarea 
-                rows={5}
-                placeholder="How can we help you?"
-                className="w-full px-6 py-4 rounded-2xl bg-bg-outer/50 border border-transparent focus:border-text-primary/20 focus:bg-white focus:outline-none transition-all resize-none"
-              ></textarea>
-            </div>
+          <div className="space-y-2">
+            <label htmlFor="name" className="text-xs font-bold uppercase tracking-[0.22em] text-text-secondary">
+              Full name
+            </label>
+            <input
+              id="name"
+              name="name"
+              value={form.name}
+              onChange={updateField("name")}
+              placeholder="John Doe"
+              autoComplete="name"
+              className="soft-input"
+              required
+            />
           </div>
-          <button className="w-full pill-button bg-text-primary text-white py-4 flex items-center justify-center space-x-2 group">
-            <span>Send Message</span>
-            <Send size={18} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+
+          <div className="space-y-2">
+            <label htmlFor="email" className="text-xs font-bold uppercase tracking-[0.22em] text-text-secondary">
+              Email address
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              value={form.email}
+              onChange={updateField("email")}
+              placeholder="john@example.com"
+              autoComplete="email"
+              className="soft-input"
+              required
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label htmlFor="message" className="text-xs font-bold uppercase tracking-[0.22em] text-text-secondary">
+              Message
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              rows={6}
+              value={form.message}
+              onChange={updateField("message")}
+              placeholder="How can we help you?"
+              className="soft-input resize-none"
+              required
+            />
+          </div>
+
+          {submitted && (
+            <p className="text-sm text-text-secondary" aria-live="polite">
+              Thanks for reaching out. Your message is ready to be handled by the editorial team.
+            </p>
+          )}
+
+          <button
+            type="submit"
+            className="pill-button btn-dark w-full py-4"
+          >
+            <span className="inline-flex items-center gap-2">
+              Send Message
+              <Send size={16} />
+            </span>
           </button>
-        </motion.div>
+        </form>
       </div>
     </div>
   );
