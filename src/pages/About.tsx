@@ -1,67 +1,81 @@
-import { Link } from "react-router-dom";
+import { motion } from "motion/react";
 
 export default function About() {
   return (
-    <div className="space-y-14 pb-20">
-      <section className="mx-auto max-w-4xl space-y-6 text-center">
-        <p className="section-kicker">About Beyond UI</p>
-        <h1 className="section-title">
-          Editorial design that feels calm, premium, and intentional.
-        </h1>
-        <p className="section-body">
-          Beyond UI is built around one simple idea: digital reading should feel as
-          crafted and clear as the best editorial publications.
-        </p>
-
-        <div className="flex flex-wrap justify-center gap-3">
-          <Link to="/blog" className="pill-button btn-dark">
-            Browse Archive
-          </Link>
-          <Link to="/features" className="pill-button">
-            Explore Features
-          </Link>
-        </div>
+    <div className="space-y-24 pb-20">
+      {/* Intro */}
+      <section className="max-w-3xl mx-auto text-center space-y-8">
+        <motion.span 
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-[10px] font-black uppercase tracking-[0.4em] text-text-secondary/60"
+        >
+          Our Story
+        </motion.span>
+        <motion.h1 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="text-5xl md:text-7xl font-black tracking-tighter"
+        >
+          Beyond the Interface.
+        </motion.h1>
+        <motion.p 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="text-xl text-text-secondary leading-relaxed"
+        >
+          We believe that the best digital experiences are the ones that feel invisible, yet indispensable. Beyond UI is a curated platform exploring the deep connections between design, technology, and human emotion.
+        </motion.p>
       </section>
 
-      <section className="overflow-hidden rounded-[32px] border border-border-base">
-        <img
-          src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&q=80&w=1600"
-          alt="Editorial workspace with design materials"
-          loading="eager"
-          className="aspect-[16/7] w-full object-cover"
+      {/* Banner */}
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        className="aspect-[21/9] rounded-[40px] overflow-hidden border border-border-light shadow-2xl"
+      >
+        <img 
+          src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=2000" 
+          alt="Office space" 
+          referrerPolicy="no-referrer"
+          className="w-full h-full object-cover"
         />
-      </section>
+      </motion.div>
 
-      <section className="grid gap-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
+      {/* Story Sections */}
+      <section className="grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
         <div className="space-y-6">
-          <p className="section-kicker">Our story</p>
-          <h2 className="text-3xl font-black tracking-tight md:text-4xl">
-            Built for people who care about structure, rhythm, and the reading experience.
-          </h2>
-          <p className="section-body">
-            Beyond UI was designed to demonstrate how a modern blog can feel premium
-            without becoming noisy. Every card, every hierarchy decision, and every
-            interaction is tuned toward clarity.
+          <h2 className="text-3xl font-black tracking-tight">The Editorial Vision</h2>
+          <p className="text-text-secondary leading-relaxed">
+            Founded in 2024, Beyond UI started as a small newsletter for design enthusiasts. Today, it has grown into a global community of thinkers, makers, and dreamers who are redefining what it means to build for the web.
           </p>
-          <p className="section-body">
-            The result is a white editorial canvas framed by a soft neutral outer surface,
-            with bold typography, restrained motion, and a layout that feels confident on
-            large screens and comfortable on mobile.
+          <p className="text-text-secondary leading-relaxed">
+            Our mission is simple: to provide a space for deep, thoughtful analysis in an era of shallow scrolling. We prioritize quality over quantity, and insight over engagement.
           </p>
         </div>
-
-        <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
-          <div className="premium-card p-6">
-            <p className="text-3xl font-black tracking-tight">07</p>
-            <p className="mt-2 text-sm text-text-secondary">Live editorial stories in the archive</p>
+        <div className="grid grid-cols-2 gap-4">
+          <div className="space-y-4">
+            <div className="bg-bg-outer p-8 rounded-[32px] text-center">
+              <p className="text-4xl font-black text-text-primary">50k+</p>
+              <p className="text-xs font-bold uppercase tracking-widest text-text-secondary">Readers</p>
+            </div>
+            <div className="bg-text-primary p-8 rounded-[32px] text-center text-white">
+              <p className="text-4xl font-black">120+</p>
+              <p className="text-xs font-bold uppercase tracking-widest opacity-60">Articles</p>
+            </div>
           </div>
-          <div className="premium-card p-6">
-            <p className="text-3xl font-black tracking-tight">03</p>
-            <p className="mt-2 text-sm text-text-secondary">Core journeys across the demo</p>
-          </div>
-          <div className="premium-card p-6">
-            <p className="text-3xl font-black tracking-tight">100%</p>
-            <p className="mt-2 text-sm text-text-secondary">Responsive layout coverage</p>
+          <div className="pt-12 space-y-4">
+            <div className="bg-bg-outer p-8 rounded-[32px] text-center">
+              <p className="text-4xl font-black text-text-primary">15</p>
+              <p className="text-xs font-bold uppercase tracking-widest text-text-secondary">Awards</p>
+            </div>
+            <div className="bg-bg-outer p-8 rounded-[32px] text-center">
+              <p className="text-4xl font-black text-text-primary">24/7</p>
+              <p className="text-xs font-bold uppercase tracking-widest text-text-secondary">Passion</p>
+            </div>
           </div>
         </div>
       </section>

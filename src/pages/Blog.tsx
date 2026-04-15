@@ -1,111 +1,74 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { Search } from "lucide-react";
 import { BlogPost } from "../types";
 import { fetchBlogPosts } from "../lib/api";
 import RecentPostsGrid from "../components/RecentPostsGrid";
+import { Search } from "lucide-react";
+import React from "react";
 
 export default function Blog() {
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("query") || "";
-
+  
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    let isMounted = true;
-
     const loadPosts = async () => {
-      try {
-        const data = await fetchBlogPosts();
-        if (isMounted) setPosts(data);
-      } finally {
-        if (isMounted) setLoading(false);
-      }
+      const data = await fetchBlogPosts();
+      setPosts(data);
+      setLoading(false);
     };
-
     loadPosts();
-
-    return () => {
-      isMounted = false;
-    };
   }, []);
 
-  const filteredPosts = useMemo(() => {
-    const normalizedQuery = query.toLowerCase().trim();
+  const filteredPosts = posts.filter((post) => {
+    const searchContent = `${post.blog_heading} ${post.blog_description} ${post.topic}`.toLowerCase();
+    return searchContent.includes(query.toLowerCase());
+  });
 
-    if (!normalizedQuery) return posts;
-
-    return posts.filter((post) => {
-      const searchableText = [
-        post.blog_heading,
-        post.blog_description,
-        post.blogtext,
-        post.topic,
-        post.name,
-        post.job_roles,
-        post.para,
-      ]
-        .join(" ")
-        .toLowerCase();
-
-      return searchableText.includes(normalizedQuery);
-    });
-  }, [posts, query]);
-
-  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-
-    if (value.trim()) {
-      setSearchParams({ query: value }, { replace: true });
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (value) {
+      setSearchParams({ query: value });
     } else {
-      setSearchParams({}, { replace: true });
+      setSearchParams({});
     }
   };
 
   return (
     <div className="space-y-12 pb-20">
-      <section className="space-y-8">
-        <div className="max-w-3xl space-y-4">
-          <p className="section-kicker">Archive</p>
-          <h1 className="section-title">The full editorial collection.</h1>
-          <p className="section-body">
-            Search stories by title, author, topic, or detail. Query strings are preserved
-            in the URL so your filtered results stay shareable.
+      {/* Header & Search */}
+      <div className="space-y-8">
+        <div className="max-w-2xl">
+          <h1 className="text-4xl md:text-6xl font-black tracking-tighter mb-4">
+            The Archive
+          </h1>
+          <p className="text-lg text-text-secondary leading-relaxed">
+            Explore our complete collection of stories, insights, and editorial pieces on the future of digital experiences.
           </p>
         </div>
-
-        <div className="relative max-w-2xl">
-          <label htmlFor="blog-search" className="sr-only">
-            Search stories
-          </label>
-          <Search
-            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-text-muted"
-            size={20}
-          />
-          <input
-            id="blog-search"
+        
+        <div className="relative max-w-xl">
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-text-secondary" size={20} />
+          <input 
             type="text"
             value={query}
             onChange={handleSearch}
-            placeholder="Search stories by title, topic, author, or content..."
-            className="soft-input pl-12"
+            placeholder="Search stories by title, topic, or content..."
+            className="w-full pl-12 pr-6 py-4 rounded-2xl border border-border-light bg-bg-outer/30 focus:bg-white focus:outline-none focus:ring-2 focus:ring-text-primary/10 transition-all"
           />
         </div>
-
-        <p className="text-sm text-text-secondary">
-          {loading ? "Loading stories..." : `${filteredPosts.length} result(s)`}
-        </p>
-      </section>
+      </div>
 
       {loading ? (
         <div className="flex items-center justify-center py-20">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-text-primary border-t-transparent" />
+          <div className="w-8 h-8 border-4 border-text-primary border-t-transparent rounded-full animate-spin" />
         </div>
       ) : (
-        <RecentPostsGrid
-          posts={filteredPosts}
-          title={query ? `Results for "${query}"` : "All Stories"}
+        <RecentPostsGrid 
+          posts={filteredPosts} 
+          title={query ? `Results for "${query}"` : "All Stories"} 
         />
       )}
     </div>
