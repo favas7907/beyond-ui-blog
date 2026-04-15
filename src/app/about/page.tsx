@@ -1,10 +1,11 @@
-import { motion } from "motion/react";
+import * as motion from "motion/react-client";
+import Image from "next/image";
 
 export default function About() {
   return (
     <div className="space-y-24 pb-24 px-6 md:px-12 pt-16">
       {/* Intro */}
-      <section className="max-w-4xl space-y-8">
+      <section className="max-w-4xl space-y-8 mx-auto">
         <motion.span 
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -31,22 +32,26 @@ export default function About() {
       </section>
 
       {/* Banner */}
-      <motion.div 
-        initial={{ opacity: 0, scale: 0.98 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        className="aspect-[21/9] rounded-premium overflow-hidden border border-border-base shadow-lg"
-      >
-        <img 
-          src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=2000" 
-          alt="Office space" 
-          referrerPolicy="no-referrer"
-          className="w-full h-full object-cover"
-        />
-      </motion.div>
+      <div className="max-w-7xl mx-auto">
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.98 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          className="relative aspect-[21/9] rounded-premium overflow-hidden border border-border-base shadow-lg"
+        >
+          <Image 
+            src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=2000" 
+            alt="Office space" 
+            fill
+            priority
+            referrerPolicy="no-referrer"
+            className="object-cover"
+          />
+        </motion.div>
+      </div>
 
       {/* Story Sections */}
-      <section className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-start">
+      <section className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24 items-start">
         <div className="space-y-8">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight">The Editorial Vision</h2>
           <div className="space-y-6 text-[18px] text-text-secondary leading-relaxed">

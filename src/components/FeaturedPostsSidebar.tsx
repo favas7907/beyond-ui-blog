@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import Link from "next/link";
+import Image from "next/image";
 import { BlogPost } from "../types";
 
 interface FeaturedPostsSidebarProps {
@@ -12,7 +13,7 @@ export default function FeaturedPostsSidebar({ posts }: FeaturedPostsSidebarProp
         <h3 className="text-[12px] font-bold uppercase tracking-[0.2em] text-text-primary">
           Editor's Picks
         </h3>
-        <Link to="/blog" className="text-[11px] font-semibold text-text-secondary hover:text-text-primary transition-colors">
+        <Link href="/blog" className="text-[11px] font-semibold text-text-secondary hover:text-text-primary transition-colors">
           View All
         </Link>
       </div>
@@ -21,15 +22,16 @@ export default function FeaturedPostsSidebar({ posts }: FeaturedPostsSidebarProp
         {posts.map((post) => (
           <Link 
             key={post.id} 
-            to={`/post/${post.id}`}
+            href={`/post/${post.id}`}
             className="group flex items-center space-x-4 py-2"
           >
-            <div className="flex-shrink-0 w-20 h-20 rounded-2xl overflow-hidden bg-gray-100 border border-border-base">
-              <img 
+            <div className="relative flex-shrink-0 w-20 h-20 rounded-2xl overflow-hidden bg-gray-100 border border-border-base">
+              <Image 
                 src={post.blog_image} 
                 alt={post.blog_heading}
+                fill
                 referrerPolicy="no-referrer"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                className="object-cover transition-transform duration-500 group-hover:scale-110"
               />
             </div>
             <div className="flex-grow min-w-0 space-y-1">

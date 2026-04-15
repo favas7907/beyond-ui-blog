@@ -1,6 +1,9 @@
-import { Link, useLocation } from "react-router-dom";
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { cn } from "../lib/utils";
-import { Menu, X, Search } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { motion } from "motion/react";
 
@@ -13,7 +16,7 @@ const NAV_LINKS = [
 ];
 
 export default function Navbar() {
-  const location = useLocation();
+  const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
@@ -21,7 +24,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="flex items-center justify-between h-14">
           {/* Logo */}
-          <Link to="/" className="text-[22px] font-bold tracking-tighter text-text-primary flex items-center space-x-2">
+          <Link href="/" className="text-[22px] font-bold tracking-tighter text-text-primary flex items-center space-x-2">
             <div className="w-8 h-8 bg-accent-base rounded-lg flex items-center justify-center text-white text-[14px]">B</div>
             <span>Beyond UI.</span>
           </Link>
@@ -31,10 +34,10 @@ export default function Navbar() {
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.name}
-                to={link.href}
+                href={link.href}
                 className={cn(
                   "text-[13px] font-bold uppercase tracking-widest transition-colors hover:text-text-primary",
-                  location.pathname === link.href ? "text-text-primary" : "text-text-muted"
+                  pathname === link.href ? "text-text-primary" : "text-text-muted"
                 )}
               >
                 {link.name}
@@ -73,11 +76,11 @@ export default function Navbar() {
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.name}
-                to={link.href}
+                href={link.href}
                 onClick={() => setIsMenuOpen(false)}
                 className={cn(
                   "block text-2xl font-bold tracking-tighter",
-                  location.pathname === link.href ? "text-text-primary" : "text-text-secondary"
+                  pathname === link.href ? "text-text-primary" : "text-text-secondary"
                 )}
               >
                 {link.name}

@@ -1,19 +1,21 @@
 import { Mail, MapPin, Phone, Send } from "lucide-react";
-import { motion } from "motion/react";
+import * as motion from "motion/react-client";
 
 export default function Contact() {
   return (
     <div className="space-y-24 pb-24 px-6 md:px-12 pt-16">
-      <div className="max-w-4xl space-y-6">
-        <h1 className="text-5xl md:text-8xl font-bold tracking-tighter leading-[0.95]">
-          Get in <br /> Touch.
-        </h1>
-        <p className="text-xl md:text-2xl text-text-secondary leading-relaxed max-w-2xl font-medium">
-          Have a story to share, a question to ask, or just want to say hello? We'd love to hear from you.
-        </p>
+      <div className="max-w-7xl mx-auto">
+        <div className="max-w-4xl space-y-6">
+          <h1 className="text-5xl md:text-8xl font-bold tracking-tighter leading-[0.95]">
+            Get in <br /> Touch.
+          </h1>
+          <p className="text-xl md:text-2xl text-text-secondary leading-relaxed max-w-2xl font-medium">
+            Have a story to share, a question to ask, or just want to say hello? We'd love to hear from you.
+          </p>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-24">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24">
         {/* Contact Info */}
         <div className="space-y-16">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-12">

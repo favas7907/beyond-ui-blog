@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { Github, Twitter, Linkedin, Instagram } from "lucide-react";
 
 export default function Footer() {
@@ -7,7 +7,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
           <div className="md:col-span-4 space-y-6">
-            <Link to="/" className="text-2xl font-bold tracking-tighter text-text-primary">
+            <Link href="/" className="text-2xl font-bold tracking-tighter text-text-primary">
               Beyond UI.
             </Link>
             <p className="text-[14px] text-text-secondary leading-relaxed max-w-xs">
@@ -24,10 +24,10 @@ export default function Footer() {
           <div className="md:col-span-2 space-y-4">
             <h4 className="text-[11px] font-bold uppercase tracking-widest text-text-primary">Platform</h4>
             <ul className="space-y-3 text-[14px] text-text-secondary">
-              <li><Link to="/blog" className="hover:text-text-primary transition-colors">Archive</Link></li>
-              <li><Link to="/features" className="hover:text-text-primary transition-colors">Features</Link></li>
-              <li><Link to="/about" className="hover:text-text-primary transition-colors">Our Story</Link></li>
-              <li><Link to="/contact" className="hover:text-text-primary transition-colors">Contact</Link></li>
+              <li><Link href="/blog" className="hover:text-text-primary transition-colors">Archive</Link></li>
+              <li><Link href="/features" className="hover:text-text-primary transition-colors">Features</Link></li>
+              <li><Link href="/about" className="hover:text-text-primary transition-colors">Our Story</Link></li>
+              <li><Link href="/contact" className="hover:text-text-primary transition-colors">Contact</Link></li>
             </ul>
           </div>
 

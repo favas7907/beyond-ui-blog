@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
+import Link from "next/link";
+import Image from "next/image";
 import { BlogPost } from "../types";
-import { motion } from "motion/react";
+import * as motion from "motion/react-client";
 
 interface HeroFeaturedPostProps {
   post: BlogPost;
@@ -13,11 +14,13 @@ export default function HeroFeaturedPost({ post }: HeroFeaturedPostProps) {
       animate={{ opacity: 1, y: 0 }}
       className="relative h-[500px] md:h-[600px] rounded-premium overflow-hidden group border border-border-base"
     >
-      <img 
+      <Image 
         src={post.blog_image} 
         alt={post.blog_heading}
+        fill
+        priority
         referrerPolicy="no-referrer"
-        className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+        className="object-cover transition-transform duration-1000 group-hover:scale-105"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
       
@@ -47,7 +50,15 @@ export default function HeroFeaturedPost({ post }: HeroFeaturedPostProps) {
           className="flex items-center space-x-6 text-white/70 text-[13px] font-medium"
         >
           <div className="flex items-center space-x-3">
-            <img src={post.avatar} alt={post.name} referrerPolicy="no-referrer" className="w-8 h-8 rounded-full border border-white/20" />
+            <div className="relative w-8 h-8 rounded-full overflow-hidden border border-white/20">
+              <Image 
+                src={post.avatar} 
+                alt={post.name} 
+                fill
+                referrerPolicy="no-referrer" 
+                className="object-cover"
+              />
+            </div>
             <span>{post.name}</span>
           </div>
           <span className="w-1 h-1 bg-white/30 rounded-full" />
@@ -62,7 +73,7 @@ export default function HeroFeaturedPost({ post }: HeroFeaturedPostProps) {
           transition={{ delay: 0.5 }}
         >
           <Link 
-            to={`/post/${post.id}`}
+            href={`/post/${post.id}`}
             className="pill-button bg-white text-text-primary border-none hover:bg-gray-100 inline-block"
           >
             Read Article

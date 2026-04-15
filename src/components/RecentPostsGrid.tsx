@@ -29,12 +29,6 @@ export default function RecentPostsGrid({ posts, title = "Recent Stories" }: Rec
       {posts.length === 0 && (
         <div className="py-20 text-center space-y-4">
           <p className="text-text-secondary text-lg">No stories found matching your criteria.</p>
-          <button 
-            onClick={() => window.location.reload()}
-            className="pill-button bg-text-primary text-white"
-          >
-            Refresh Feed
-          </button>
         </div>
       )}
     </section>

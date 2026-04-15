@@ -1,5 +1,5 @@
 import { Layout, Zap, Shield, Globe, Cpu, Palette } from "lucide-react";
-import { motion } from "motion/react";
+import * as motion from "motion/react-client";
 
 const FEATURES = [
   {
@@ -25,7 +25,7 @@ const FEATURES = [
   {
     icon: <Cpu className="w-8 h-8" />,
     title: "Modern Tech Stack",
-    description: "Built with the latest technologies including React, Vite, and Express for a robust foundation."
+    description: "Built with the latest technologies including Next.js, Tailwind, and TypeScript."
   },
   {
     icon: <Palette className="w-8 h-8" />,
@@ -37,16 +37,18 @@ const FEATURES = [
 export default function Features() {
   return (
     <div className="space-y-24 pb-24 px-6 md:px-12 pt-16">
-      <div className="max-w-4xl space-y-6">
-        <h1 className="text-5xl md:text-8xl font-bold tracking-tighter leading-[0.95]">
-          Built for the <br /> Future.
-        </h1>
-        <p className="text-xl md:text-2xl text-text-secondary leading-relaxed max-w-2xl font-medium">
-          Beyond UI is more than just a blog. It's a carefully engineered platform designed to elevate your content and provide a premium experience for your readers.
-        </p>
+      <div className="max-w-7xl mx-auto">
+        <div className="max-w-4xl space-y-6">
+          <h1 className="text-5xl md:text-8xl font-bold tracking-tighter leading-[0.95]">
+            Built for the <br /> Future.
+          </h1>
+          <p className="text-xl md:text-2xl text-text-secondary leading-relaxed max-w-2xl font-medium">
+            Beyond UI is more than just a blog. It's a carefully engineered platform designed to elevate your content and provide a premium experience for your readers.
+          </p>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {FEATURES.map((feature, index) => (
           <motion.div 
             key={feature.title}
@@ -68,22 +70,24 @@ export default function Features() {
       </div>
 
       {/* CTA Section */}
-      <section className="bg-gray-50 border border-border-base rounded-[40px] p-12 md:p-24 text-center space-y-10">
-        <h2 className="text-3xl md:text-6xl font-bold tracking-tighter max-w-3xl mx-auto leading-[1.1]">
-          Ready to elevate your digital presence?
-        </h2>
-        <p className="text-lg md:text-xl text-text-secondary max-w-xl mx-auto font-medium">
-          Join the ranks of premium publishers who choose Beyond UI for their editorial needs.
-        </p>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-          <button className="pill-button btn-dark px-12 py-4">
-            Get Started Now
-          </button>
-          <button className="pill-button bg-white text-text-primary px-12 py-4 hover:bg-gray-100">
-            View Documentation
-          </button>
-        </div>
-      </section>
+      <div className="max-w-7xl mx-auto">
+        <section className="bg-gray-50 border border-border-base rounded-[40px] p-12 md:p-24 text-center space-y-10">
+          <h2 className="text-3xl md:text-6xl font-bold tracking-tighter max-w-3xl mx-auto leading-[1.1]">
+            Ready to elevate your digital presence?
+          </h2>
+          <p className="text-lg md:text-xl text-text-secondary max-w-xl mx-auto font-medium">
+            Join the ranks of premium publishers who choose Beyond UI for their editorial needs.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+            <button className="pill-button btn-dark px-12 py-4">
+              Get Started Now
+            </button>
+            <button className="pill-button bg-white text-text-primary px-12 py-4 hover:bg-gray-100">
+              View Documentation
+            </button>
+          </div>
+        </section>
+      </div>
     </div>
   );
 }

@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
+import Link from "next/link";
+import Image from "next/image";
 import { BlogPost } from "../types";
 import { format } from "date-fns";
-import { motion } from "motion/react";
+import * as motion from "motion/react-client";
 
 interface PostCardProps {
   post: BlogPost;
@@ -15,13 +16,14 @@ export default function PostCard({ post }: PostCardProps) {
       viewport={{ once: true }}
       className="group"
     >
-      <Link to={`/post/${post.id}`} className="block space-y-4">
-        <div className="aspect-[16/10] overflow-hidden rounded-2xl border border-border-base bg-gray-100">
-          <img 
+      <Link href={`/post/${post.id}`} className="block space-y-4">
+        <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-border-base bg-gray-100">
+          <Image 
             src={post.blog_image} 
             alt={post.blog_heading}
+            fill
             referrerPolicy="no-referrer"
-            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+            className="object-cover transition-transform duration-700 group-hover:scale-105"
           />
         </div>
         <div className="space-y-2">
@@ -37,12 +39,15 @@ export default function PostCard({ post }: PostCardProps) {
             {post.blog_description}
           </p>
           <div className="pt-2 flex items-center space-x-3">
-            <img 
-              src={post.avatar} 
-              alt={post.name} 
-              referrerPolicy="no-referrer"
-              className="w-6 h-6 rounded-full object-cover grayscale"
-            />
+            <div className="relative w-6 h-6 rounded-full overflow-hidden grayscale">
+              <Image 
+                src={post.avatar} 
+                alt={post.name} 
+                fill
+                referrerPolicy="no-referrer"
+                className="object-cover"
+              />
+            </div>
             <span className="text-[12px] font-medium text-text-primary">{post.name}</span>
           </div>
         </div>
